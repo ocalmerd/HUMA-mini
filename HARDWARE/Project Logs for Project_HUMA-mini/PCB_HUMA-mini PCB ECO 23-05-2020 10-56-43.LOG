@@ -1,0 +1,4 @@
+Change Class Name : Old Net Name=Schematics_HUMA New Net Name=Schematics_HUMA-mini
+Added Member To Class: ClassName=U_Power_HUMA Member=Component LD1 Red
+Added Member To Class: ClassName=Schematics_HUMA-mini Member=Component LD2 Light Blue
+Added Member To Class: ClassName=Schematics_HUMA-mini Member=Component R12 220

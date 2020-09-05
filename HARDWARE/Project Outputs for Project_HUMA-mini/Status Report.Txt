@@ -1,0 +1,10 @@
+Output: Export STEP
+Type  : ExportSTEP
+From  : Variant [[No Variations]] of PCB Document [PCB_HUMA-mini.PcbDoc]
+   Generated File[PCB_HUMA-mini.step]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 11:07:29 On 23/05/2020
