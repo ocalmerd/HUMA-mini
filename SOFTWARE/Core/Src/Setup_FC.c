@@ -155,43 +155,43 @@ void Main_Setup( void )
 	    HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
 
 
-		Flash_EraseSector( 11 );
+		Flash_ErasePage( 0x0803F800 );
 																				// EEPROM Array to Flash
-		Flash_EEPROM_Data_Write( 11, 0x080E0000,  0, &eeprom_data[0]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000,  1, &eeprom_data[1]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000,  2, &eeprom_data[2]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000,  3, &eeprom_data[3]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000,  4, &eeprom_data[4]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000,  5, &eeprom_data[5]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000,  6, &eeprom_data[6]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000,  7, &eeprom_data[7]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000,  8, &eeprom_data[8]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000,  9, &eeprom_data[9]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 10, &eeprom_data[10]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 11, &eeprom_data[11]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 12, &eeprom_data[12]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 13, &eeprom_data[13]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 14, &eeprom_data[14]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 15, &eeprom_data[15]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 16, &eeprom_data[16]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 17, &eeprom_data[17]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 18, &eeprom_data[18]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 19, &eeprom_data[19]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 20, &eeprom_data[20]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 21, &eeprom_data[21]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 22, &eeprom_data[22]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 23, &eeprom_data[23]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 24, &eeprom_data[24]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 25, &eeprom_data[25]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 26, &eeprom_data[26]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 27, &eeprom_data[27]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 28, &eeprom_data[28]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 29, &eeprom_data[29]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 30, &eeprom_data[30]);
-		Flash_EEPROM_Data_Write( 11, 0x080E0000, 31, &eeprom_data[31]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  0, &eeprom_data[0]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  1, &eeprom_data[1]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  2, &eeprom_data[2]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  3, &eeprom_data[3]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  4, &eeprom_data[4]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  5, &eeprom_data[5]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  6, &eeprom_data[6]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  7, &eeprom_data[7]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  8, &eeprom_data[8]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  9, &eeprom_data[9]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 10, &eeprom_data[10]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 11, &eeprom_data[11]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 12, &eeprom_data[12]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 13, &eeprom_data[13]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 14, &eeprom_data[14]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 15, &eeprom_data[15]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 16, &eeprom_data[16]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 17, &eeprom_data[17]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 18, &eeprom_data[18]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 19, &eeprom_data[19]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 20, &eeprom_data[20]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 21, &eeprom_data[21]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 22, &eeprom_data[22]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 23, &eeprom_data[23]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 24, &eeprom_data[24]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 25, &eeprom_data[25]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 26, &eeprom_data[26]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 27, &eeprom_data[27]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 28, &eeprom_data[28]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 29, &eeprom_data[29]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 30, &eeprom_data[30]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 31, &eeprom_data[31]);
 
 
-		Flash_EEPROM_Data_Read( 11, 0x080E0000, 31, &eeprom_data_test[0]);
+		Flash_EEPROM_Data_Read( 127, 0x0803F800, 31, &eeprom_data_test[0]);
 
 	    sprintf(uartTX, "                                                                                                    ");
 	    sprintf(uartTX, "\nSetup is done! Everything is looks OKAY! All data is saved to the flash! Reset!\n");
@@ -203,7 +203,7 @@ void Main_Setup( void )
 	    sprintf(uartTX, "\nSetup is NOT done! Gyro axises are useless! Re-do the setup!\n");
 	    HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
 
-		Flash_EraseSector( 11 );
+		Flash_ErasePage( 0x0803F800 );
 	}
 	else
 	{
@@ -211,7 +211,7 @@ void Main_Setup( void )
 	    sprintf(uartTX, "\nSetup is NOT done! All data is useless! Re-do the setup!\n");
 	    HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
 
-		Flash_EraseSector( 11 );
+		Flash_ErasePage( 0x0803F800 );
 	}
 }
 

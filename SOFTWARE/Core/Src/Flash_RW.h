@@ -12,7 +12,7 @@
 #include "main.h"
 
 
-void Flash_EraseSector( uint8_t sector );
+void Flash_ErasePage( uint32_t page );
 
 void Flash_EEPROM_Data_Write( uint8_t sector, uint32_t address, uint32_t index, void *writeBuffer );
 

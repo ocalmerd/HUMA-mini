@@ -209,7 +209,7 @@ int main(void)
 		  sprintf(uartTX, "                                                                                                    ");
 		  sprintf(uartTX, "\nGubba nub nub doo rah kah!\n");
 
-//		  Flash_EraseSector( 11 );				// Causes HARDFAULT !!!
+		  Flash_ErasePage( 0x0803F800 );
 
 
 		  while ( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
@@ -236,6 +236,20 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if ( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
+	  {
+		  for (int i = 0; i <= 50000000; i++ )
+		  {
+			  if( i == 50000000 && HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
+			  {
+				  sprintf(uartTX, "                                                                                                    ");
+				  sprintf(uartTX, "\nSetup is starting..!\n");
+				  HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+
+				  Main_Setup( );
+			  }
+		  }
+	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

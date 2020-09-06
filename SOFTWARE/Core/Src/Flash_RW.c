@@ -7,18 +7,23 @@
 
 #include "Flash_RW.h"
 
+
+void    FLASH_PageErase(uint32_t PageAddress);
+
 uint32_t PageError;
 
-void Flash_EraseSector( uint8_t sector )
+
+void Flash_ErasePage( uint32_t pageaddress )
 {
 	HAL_FLASH_Unlock();
 
-	HAL_FLASHEx_Erase( (FLASH_EraseInitTypeDef *) FLASH_TYPEERASE_MASSERASE, (uint32_t *) PageError);
+//	HAL_FLASHEx_Erase( (FLASH_EraseInitTypeDef *) FLASH_TYPEERASE_MASSERASE, (uint32_t *) PageError);
+	FLASH_PageErase( pageaddress );
 
 	HAL_FLASH_Lock();
 }
 
-void Flash_EEPROM_Data_Write( uint8_t sector, uint32_t address, uint32_t index, void *writeBuffer )
+void Flash_EEPROM_Data_Write( uint8_t page, uint32_t address, uint32_t index, void *writeBuffer )
 {
 	uint32_t flashAddress = address + index;
 
@@ -28,8 +33,8 @@ void Flash_EEPROM_Data_Write( uint8_t sector, uint32_t address, uint32_t index, 
 	//Write to Flash
 	for( uint32_t i = 0; i < 1; i++ )
 	{
-		HAL_FLASH_Program( FLASH_TYPEPROGRAM_HALFWORD, flashAddress , ( (uint8_t *)writeBuffer )[i] );
-		flashAddress++;
+		HAL_FLASH_Program( FLASH_TYPEPROGRAM_HALFWORD, flashAddress , ( (uint16_t *)writeBuffer )[i] );
+		flashAddress+=2;
 	}
 
 	//Lock the Flash space
@@ -42,7 +47,7 @@ void Flash_EEPROM_Data_Read( uint8_t sector, uint32_t address, uint32_t index, v
 
 	for( uint32_t i = 0; i < 1; i++ )
 	{
-		*((uint8_t *)readBuffer + i) = *(uint8_t *)flashAddress;
-		flashAddress++;
+		*((uint16_t *)readBuffer + i) = *(uint8_t *)flashAddress;
+		flashAddress+=2;
 	}
 }
