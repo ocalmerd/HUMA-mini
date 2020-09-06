@@ -121,38 +121,38 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 	// Flash to EEPROM Array
-	Flash_EEPROM_Data_Read( 11, 0x08030000,  0, &eeprom_data[0]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000,  1, &eeprom_data[1]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000,  2, &eeprom_data[2]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000,  3, &eeprom_data[3]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000,  4, &eeprom_data[4]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000,  5, &eeprom_data[5]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000,  6, &eeprom_data[6]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000,  7, &eeprom_data[7]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000,  8, &eeprom_data[8]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000,  9, &eeprom_data[9]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 10, &eeprom_data[10]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 11, &eeprom_data[11]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 12, &eeprom_data[12]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 13, &eeprom_data[13]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 14, &eeprom_data[14]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 15, &eeprom_data[15]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 16, &eeprom_data[16]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 17, &eeprom_data[17]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 18, &eeprom_data[18]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 19, &eeprom_data[19]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 20, &eeprom_data[20]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 21, &eeprom_data[21]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 22, &eeprom_data[22]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 23, &eeprom_data[23]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 24, &eeprom_data[24]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 25, &eeprom_data[25]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 26, &eeprom_data[26]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 27, &eeprom_data[27]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 28, &eeprom_data[28]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 29, &eeprom_data[29]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 30, &eeprom_data[30]);
-	Flash_EEPROM_Data_Read( 11, 0x08030000, 31, &eeprom_data[31]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800,  0, &eeprom_data[0]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800,  1, &eeprom_data[1]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800,  2, &eeprom_data[2]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800,  3, &eeprom_data[3]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800,  4, &eeprom_data[4]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800,  5, &eeprom_data[5]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800,  6, &eeprom_data[6]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800,  7, &eeprom_data[7]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800,  8, &eeprom_data[8]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800,  9, &eeprom_data[9]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 10, &eeprom_data[10]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 11, &eeprom_data[11]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 12, &eeprom_data[12]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 13, &eeprom_data[13]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 14, &eeprom_data[14]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 15, &eeprom_data[15]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 16, &eeprom_data[16]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 17, &eeprom_data[17]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 18, &eeprom_data[18]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 19, &eeprom_data[19]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 20, &eeprom_data[20]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 21, &eeprom_data[21]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 22, &eeprom_data[22]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 23, &eeprom_data[23]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 24, &eeprom_data[24]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 25, &eeprom_data[25]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 26, &eeprom_data[26]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 27, &eeprom_data[27]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 28, &eeprom_data[28]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 29, &eeprom_data[29]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 30, &eeprom_data[30]);
+	Flash_EEPROM_Data_Read( 127, 0x0803F800, 31, &eeprom_data[31]);
 
 	L3GD20H_Init();
 	PWM_IC_Start();
@@ -207,23 +207,9 @@ int main(void)
 	else
 	{
 		  sprintf(uartTX, "                                                                                                    ");
-		  sprintf(uartTX, "\nGubba nub nub doo rah kah!\n");
+		  sprintf(uartTX, "\nMain Setup has not been done correctly!\n");
 
 		  Flash_ErasePage( 0x0803F800 );
-
-
-		  while ( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
-		  {
-			  for (int i = 0; i <= 50000000; i++ )
-			  {
-				  if( i == 50000000 && HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
-				  {
-					  sprintf(uartTX, "                                                                                                    ");
-					  sprintf(uartTX, "\nBURADAYIM DAYI!\n");
-					  HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
-				  }
-			  }
-		  }
 	}
 
 	sprintf(uartTX, "                                                                                                    ");
