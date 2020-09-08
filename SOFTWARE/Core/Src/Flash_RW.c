@@ -25,7 +25,7 @@ void Flash_ErasePage( uint32_t pageaddress )
 
 void Flash_EEPROM_Data_Write( uint8_t page, uint32_t address, uint32_t index, void *writeBuffer )
 {
-	uint32_t flashAddress = address + index;
+	uint32_t flashAddress = address + (index*2);
 
 	//Unlock Flash
 	HAL_FLASH_Unlock();
@@ -34,7 +34,7 @@ void Flash_EEPROM_Data_Write( uint8_t page, uint32_t address, uint32_t index, vo
 	for( uint32_t i = 0; i < 1; i++ )
 	{
 		HAL_FLASH_Program( FLASH_TYPEPROGRAM_HALFWORD, flashAddress , ( (uint16_t *)writeBuffer )[i] );
-		flashAddress+=2;
+		flashAddress++;
 	}
 
 	//Lock the Flash space
@@ -43,11 +43,11 @@ void Flash_EEPROM_Data_Write( uint8_t page, uint32_t address, uint32_t index, vo
 
 void Flash_EEPROM_Data_Read( uint8_t sector, uint32_t address, uint32_t index, void *readBuffer )
 {
-	uint32_t flashAddress = address + index;
+	uint32_t flashAddress = address + (index*2);
 
 	for( uint32_t i = 0; i < 1; i++ )
 	{
 		*((uint16_t *)readBuffer + i) = *(uint8_t *)flashAddress;
-		flashAddress+=2;
+		flashAddress++;
 	}
 }
