@@ -148,7 +148,7 @@ void Main_Setup( void )
 	eeprom_data[31] = 92;
 
 
-	if( eeprom_data[31] == 92 && eeprom_data[28] == 2 && eeprom_data[29] == 1 && eeprom_data[30] == 131 )
+	if( eeprom_data[31] == 92 /* && eeprom_data[28] == 2 && eeprom_data[29] == 1 && eeprom_data[30] == 131 */ )
 	{
 	    sprintf(uartTX, "                                                                                                    ");
 	    sprintf(uartTX, "\nValues look good! Saving data to the flash.....!\n");
