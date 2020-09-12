@@ -41,6 +41,8 @@ void L3GD20H_Init( void )
 		sprintf(uartTX, "                                                                                                    ");
 		sprintf(uartTX, "\nL3GD20H is found and settled!\n");
 		HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+
+		gyro_error = false;
     }
 	else
 	{

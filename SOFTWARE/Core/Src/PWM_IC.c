@@ -4,8 +4,8 @@
  *  	Created on: 7 feb. 2020
  *      Author: MERT OCAL
  *
- *      //	This library is designed especially for STM32F407 Discovery Board TIM2
- *      //	The Input_Capture has been set for 4 channel reading
+ *      //	This file is designed especially for STM32F303CCT6 - TIM2
+ *      //	The Input_Capture has been set for 4 channels reading
  *      //
  */
 

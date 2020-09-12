@@ -38,7 +38,8 @@ char uartTX[101];
 int receiver_input_channel_1, receiver_input_channel_2, receiver_input_channel_3, receiver_input_channel_4;
 int16_t gX_Raw, gY_Raw, gZ_Raw;
 ///
-bool gyro_error = false;
+bool gyro_error;
+bool setup_error;
 ///	Outputs
 int esc_1, esc_2, esc_3, esc_4;
 double gyro_pitch, gyro_roll, gyro_yaw;
@@ -157,63 +158,72 @@ int main(void)
 	PWM_IC_Start();
 	///
 	HAL_Delay( 2500 );
-	///
 
-	if( gyro_error == true )
+	/////////////////////////////////////////////////////////////////////////
+
+
+	if( gyro_error == false )
+	{
+		sprintf(uartTX, "                                                                                                    ");
+		sprintf(uartTX, "\nSystem started!\n");
+		HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+		HAL_Delay( 2500 );
+	}
+	else if( gyro_error == true )
 	{
 		  sprintf(uartTX, "                                                                                                    ");
-		  sprintf(uartTX, "\nSystem failed to start! Check gyro connections!\n");
+		  sprintf(uartTX, "\nSystem failed to start!\n");
 		  HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
 
 		  while ( gyro_error ) {	} 		// Endless Loop
 	}
-
-	sprintf(uartTX, "                                                                                                    ");
-	sprintf(uartTX, "\nSystem started!\n");
-	HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
-	HAL_Delay( 2500 );
-
-	if ( eeprom_data[31] == 92 )
-	{
-
-		  while ( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
-		  {
-			  for (int i = 0; i <= 50000000; i++ )
-			  {
-				  if( i == 50000000 && HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
-				  {
-					  sprintf(uartTX, "                                                                                                    ");
-					  sprintf(uartTX, "\nESC Calibration is starting! Reset after calibration!\n");
-					  HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
-
-					  ESC_Calibration();
-				  }
-			  }
-		  }
-
-		  /////////////////////////////////////////////////////////////////////////
-
-		  sprintf(uartTX, "                                                                                                    ");
-		  sprintf(uartTX, "\nFlight Control Setup is starting!\n");
-		  HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
-
-		  Flight_Control_Setup();
-
-		  sprintf(uartTX, "                                                                                                    ");
-		  sprintf(uartTX, "\nFlight Control Setup is done! Ready to fly!\n");
-		  HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
-	}
 	else
 	{
 		  sprintf(uartTX, "                                                                                                    ");
-		  sprintf(uartTX, "\nMain Setup has not been done correctly!\n");
-
-		  Flash_ErasePage( 0x0803F800 );
+		  sprintf(uartTX, "\nOh shit!\n");
+		  HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
 	}
 
-	sprintf(uartTX, "                                                                                                    ");
-	sprintf(uartTX, "\nWhat up, my glip-glops!!!\n");
-	HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+	/////////////////////////////////////////////////////////////////////////
+
+	if ( eeprom_data[31] == 92 )
+	{
+		while ( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
+		{
+			for (int i = 0; i <= 50000000; i++ )
+			{
+				if( i == 50000000 && HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
+				{
+					sprintf(uartTX, "                                                                                                    ");
+					sprintf(uartTX, "\nESC Calibration is starting! Reset after calibration!\n");
+					HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+
+					ESC_Calibration();
+				}
+			}
+		}
+
+
+		sprintf(uartTX, "                                                                                                    ");
+		sprintf(uartTX, "\nFlight Setup is starting!\n");
+		HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+
+		Flight_Control_Setup();
+
+		sprintf(uartTX, "                                                                                                    ");
+		sprintf(uartTX, "\nFlight Setup is done! Ready to fly!\n");
+		HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+	}
+	else
+	{
+		setup_error = true;
+
+		sprintf(uartTX, "                                                                                                    ");
+		sprintf(uartTX, "\nMain Setup has not been done correctly!\n");
+		HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+
+		while ( setup_error ) {	} 		// Endless Loop
+	}
 
   /* USER CODE END 2 */
 
@@ -357,7 +367,7 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 72;
+  htim2.Init.Prescaler = 71;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 12000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
