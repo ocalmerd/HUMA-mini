@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  0001cdf2  00000000  00000000  0003f388  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   00011aa8  00000000  00000000  0005c17a  2**0
+ 17 .debug_line   00011aa6  00000000  00000000  0005c17a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    0009f0a5  00000000  00000000  0006dc22  2**0
+ 18 .debug_str    0009f0a2  00000000  00000000  0006dc20  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  0010ccc7  2**0
+ 19 .comment      0000007b  00000000  00000000  0010ccc2  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00004b78  00000000  00000000  0010cd44  2**2
+ 20 .debug_frame  00004b78  00000000  00000000  0010cd40  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -5118,7 +5118,7 @@ int main(void)
  8002b60:	493a      	ldr	r1, [pc, #232]	; (8002c4c <main+0x520>)
  8002b62:	483d      	ldr	r0, [pc, #244]	; (8002c58 <main+0x52c>)
  8002b64:	f005 fbcc 	bl	8008300 <HAL_UART_Transmit>
- 8002b68:	e02e      	b.n	8002bc8 <main+0x49c>
+ 8002b68:	e06c      	b.n	8002c44 <main+0x518>
 	}
 	else
 	{
@@ -5166,86 +5166,88 @@ int main(void)
  8002bb8:	4827      	ldr	r0, [pc, #156]	; (8002c58 <main+0x52c>)
  8002bba:	f005 fba1 	bl	8008300 <HAL_UART_Transmit>
 
-		while ( setup_error ) {	} 		// Endless Loop
- 8002bbe:	bf00      	nop
- 8002bc0:	4b28      	ldr	r3, [pc, #160]	; (8002c64 <main+0x538>)
- 8002bc2:	781b      	ldrb	r3, [r3, #0]
- 8002bc4:	2b00      	cmp	r3, #0
- 8002bc6:	d1fb      	bne.n	8002bc0 <main+0x494>
+		while ( setup_error )
+ 8002bbe:	e03d      	b.n	8002c3c <main+0x510>
+		{
+			if ( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
+ 8002bc0:	2101      	movs	r1, #1
+ 8002bc2:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8002bc6:	f001 f98b 	bl	8003ee0 <HAL_GPIO_ReadPin>
+ 8002bca:	4603      	mov	r3, r0
+ 8002bcc:	2b00      	cmp	r3, #0
+ 8002bce:	d035      	beq.n	8002c3c <main+0x510>
+			{
+				for (int i = 0; i <= 50000000; i++ )
+ 8002bd0:	2300      	movs	r3, #0
+ 8002bd2:	603b      	str	r3, [r7, #0]
+ 8002bd4:	e02e      	b.n	8002c34 <main+0x508>
+				{
+					if( i == 50000000 && HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
+ 8002bd6:	683b      	ldr	r3, [r7, #0]
+ 8002bd8:	4a1b      	ldr	r2, [pc, #108]	; (8002c48 <main+0x51c>)
+ 8002bda:	4293      	cmp	r3, r2
+ 8002bdc:	d127      	bne.n	8002c2e <main+0x502>
+ 8002bde:	2101      	movs	r1, #1
+ 8002be0:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
+ 8002be4:	f001 f97c 	bl	8003ee0 <HAL_GPIO_ReadPin>
+ 8002be8:	4603      	mov	r3, r0
+ 8002bea:	2b00      	cmp	r3, #0
+ 8002bec:	d01f      	beq.n	8002c2e <main+0x502>
+					{
+						sprintf(uartTX, "                                                                                                    ");
+ 8002bee:	4a17      	ldr	r2, [pc, #92]	; (8002c4c <main+0x520>)
+ 8002bf0:	4b17      	ldr	r3, [pc, #92]	; (8002c50 <main+0x524>)
+ 8002bf2:	4610      	mov	r0, r2
+ 8002bf4:	4619      	mov	r1, r3
+ 8002bf6:	2365      	movs	r3, #101	; 0x65
+ 8002bf8:	461a      	mov	r2, r3
+ 8002bfa:	f006 f969 	bl	8008ed0 <memcpy>
+						sprintf(uartTX, "\nSetup is starting..!\n");
+ 8002bfe:	4a13      	ldr	r2, [pc, #76]	; (8002c4c <main+0x520>)
+ 8002c00:	4b1a      	ldr	r3, [pc, #104]	; (8002c6c <main+0x540>)
+ 8002c02:	4614      	mov	r4, r2
+ 8002c04:	461d      	mov	r5, r3
+ 8002c06:	cd0f      	ldmia	r5!, {r0, r1, r2, r3}
+ 8002c08:	6020      	str	r0, [r4, #0]
+ 8002c0a:	6061      	str	r1, [r4, #4]
+ 8002c0c:	60a2      	str	r2, [r4, #8]
+ 8002c0e:	60e3      	str	r3, [r4, #12]
+ 8002c10:	6828      	ldr	r0, [r5, #0]
+ 8002c12:	6120      	str	r0, [r4, #16]
+ 8002c14:	88ab      	ldrh	r3, [r5, #4]
+ 8002c16:	79aa      	ldrb	r2, [r5, #6]
+ 8002c18:	82a3      	strh	r3, [r4, #20]
+ 8002c1a:	4613      	mov	r3, r2
+ 8002c1c:	75a3      	strb	r3, [r4, #22]
+						HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+ 8002c1e:	2364      	movs	r3, #100	; 0x64
+ 8002c20:	2265      	movs	r2, #101	; 0x65
+ 8002c22:	490a      	ldr	r1, [pc, #40]	; (8002c4c <main+0x520>)
+ 8002c24:	480c      	ldr	r0, [pc, #48]	; (8002c58 <main+0x52c>)
+ 8002c26:	f005 fb6b 	bl	8008300 <HAL_UART_Transmit>
+
+						Main_Setup( );
+ 8002c2a:	f7fe fceb 	bl	8001604 <Main_Setup>
+				for (int i = 0; i <= 50000000; i++ )
+ 8002c2e:	683b      	ldr	r3, [r7, #0]
+ 8002c30:	3301      	adds	r3, #1
+ 8002c32:	603b      	str	r3, [r7, #0]
+ 8002c34:	683b      	ldr	r3, [r7, #0]
+ 8002c36:	4a04      	ldr	r2, [pc, #16]	; (8002c48 <main+0x51c>)
+ 8002c38:	4293      	cmp	r3, r2
+ 8002c3a:	ddcc      	ble.n	8002bd6 <main+0x4aa>
+		while ( setup_error )
+ 8002c3c:	4b09      	ldr	r3, [pc, #36]	; (8002c64 <main+0x538>)
+ 8002c3e:	781b      	ldrb	r3, [r3, #0]
+ 8002c40:	2b00      	cmp	r3, #0
+ 8002c42:	d1bd      	bne.n	8002bc0 <main+0x494>
+
+  /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
-	  if ( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
- 8002bc8:	2101      	movs	r1, #1
- 8002bca:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
- 8002bce:	f001 f987 	bl	8003ee0 <HAL_GPIO_ReadPin>
- 8002bd2:	4603      	mov	r3, r0
- 8002bd4:	2b00      	cmp	r3, #0
- 8002bd6:	d0f7      	beq.n	8002bc8 <main+0x49c>
-	  {
-		  for (int i = 0; i <= 50000000; i++ )
- 8002bd8:	2300      	movs	r3, #0
- 8002bda:	603b      	str	r3, [r7, #0]
- 8002bdc:	e02e      	b.n	8002c3c <main+0x510>
-		  {
-			  if( i == 50000000 && HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
- 8002bde:	683b      	ldr	r3, [r7, #0]
- 8002be0:	4a19      	ldr	r2, [pc, #100]	; (8002c48 <main+0x51c>)
- 8002be2:	4293      	cmp	r3, r2
- 8002be4:	d127      	bne.n	8002c36 <main+0x50a>
- 8002be6:	2101      	movs	r1, #1
- 8002be8:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
- 8002bec:	f001 f978 	bl	8003ee0 <HAL_GPIO_ReadPin>
- 8002bf0:	4603      	mov	r3, r0
- 8002bf2:	2b00      	cmp	r3, #0
- 8002bf4:	d01f      	beq.n	8002c36 <main+0x50a>
-			  {
-				  sprintf(uartTX, "                                                                                                    ");
- 8002bf6:	4a15      	ldr	r2, [pc, #84]	; (8002c4c <main+0x520>)
- 8002bf8:	4b15      	ldr	r3, [pc, #84]	; (8002c50 <main+0x524>)
- 8002bfa:	4610      	mov	r0, r2
- 8002bfc:	4619      	mov	r1, r3
- 8002bfe:	2365      	movs	r3, #101	; 0x65
- 8002c00:	461a      	mov	r2, r3
- 8002c02:	f006 f965 	bl	8008ed0 <memcpy>
-				  sprintf(uartTX, "\nSetup is starting..!\n");
- 8002c06:	4a11      	ldr	r2, [pc, #68]	; (8002c4c <main+0x520>)
- 8002c08:	4b18      	ldr	r3, [pc, #96]	; (8002c6c <main+0x540>)
- 8002c0a:	4614      	mov	r4, r2
- 8002c0c:	461d      	mov	r5, r3
- 8002c0e:	cd0f      	ldmia	r5!, {r0, r1, r2, r3}
- 8002c10:	6020      	str	r0, [r4, #0]
- 8002c12:	6061      	str	r1, [r4, #4]
- 8002c14:	60a2      	str	r2, [r4, #8]
- 8002c16:	60e3      	str	r3, [r4, #12]
- 8002c18:	6828      	ldr	r0, [r5, #0]
- 8002c1a:	6120      	str	r0, [r4, #16]
- 8002c1c:	88ab      	ldrh	r3, [r5, #4]
- 8002c1e:	79aa      	ldrb	r2, [r5, #6]
- 8002c20:	82a3      	strh	r3, [r4, #20]
- 8002c22:	4613      	mov	r3, r2
- 8002c24:	75a3      	strb	r3, [r4, #22]
-				  HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
- 8002c26:	2364      	movs	r3, #100	; 0x64
- 8002c28:	2265      	movs	r2, #101	; 0x65
- 8002c2a:	4908      	ldr	r1, [pc, #32]	; (8002c4c <main+0x520>)
- 8002c2c:	480a      	ldr	r0, [pc, #40]	; (8002c58 <main+0x52c>)
- 8002c2e:	f005 fb67 	bl	8008300 <HAL_UART_Transmit>
-
-				  Main_Setup( );
- 8002c32:	f7fe fce7 	bl	8001604 <Main_Setup>
-		  for (int i = 0; i <= 50000000; i++ )
- 8002c36:	683b      	ldr	r3, [r7, #0]
- 8002c38:	3301      	adds	r3, #1
- 8002c3a:	603b      	str	r3, [r7, #0]
- 8002c3c:	683b      	ldr	r3, [r7, #0]
- 8002c3e:	4a02      	ldr	r2, [pc, #8]	; (8002c48 <main+0x51c>)
- 8002c40:	4293      	cmp	r3, r2
- 8002c42:	ddcc      	ble.n	8002bde <main+0x4b2>
-	  if ( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
- 8002c44:	e7c0      	b.n	8002bc8 <main+0x49c>
+ 8002c44:	e7fe      	b.n	8002c44 <main+0x518>
  8002c46:	bf00      	nop
  8002c48:	02faf080 	.word	0x02faf080
  8002c4c:	200002a4 	.word	0x200002a4

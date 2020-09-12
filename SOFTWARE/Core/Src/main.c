@@ -222,7 +222,23 @@ int main(void)
 		sprintf(uartTX, "\nMain Setup has not been done correctly!\n");
 		HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
 
-		while ( setup_error ) {	} 		// Endless Loop
+		while ( setup_error )
+		{
+			if ( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
+			{
+				for (int i = 0; i <= 50000000; i++ )
+				{
+					if( i == 50000000 && HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
+					{
+						sprintf(uartTX, "                                                                                                    ");
+						sprintf(uartTX, "\nSetup is starting..!\n");
+						HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+
+						Main_Setup( );
+					}
+				}
+			}
+		}
 	}
 
   /* USER CODE END 2 */
@@ -231,20 +247,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if ( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
-	  {
-		  for (int i = 0; i <= 50000000; i++ )
-		  {
-			  if( i == 50000000 && HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
-			  {
-				  sprintf(uartTX, "                                                                                                    ");
-				  sprintf(uartTX, "\nSetup is starting..!\n");
-				  HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
-
-				  Main_Setup( );
-			  }
-		  }
-	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
