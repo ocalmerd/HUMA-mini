@@ -186,7 +186,7 @@ int main(void)
 
 	/////////////////////////////////////////////////////////////////////////
 
-	if ( eeprom_data[31] == 92 )
+	if ( eeprom_data[31] == 92 && gyro_error == false )
 	{
 		while ( HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) )
 		{

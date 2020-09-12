@@ -148,7 +148,7 @@ void Main_Setup( void )
 	eeprom_data[31] = 92;
 
 
-	if( eeprom_data[31] == 92 /* && eeprom_data[28] == 2 && eeprom_data[29] == 1 && eeprom_data[30] == 131 */ )
+	if( eeprom_data[31] == 92 && eeprom_data[28] == 1 && eeprom_data[29] == 130 && eeprom_data[30] == 131 )
 	{
 	    sprintf(uartTX, "                                                                                                    ");
 	    sprintf(uartTX, "\nValues look good! Saving data to the flash.....!\n");
@@ -193,25 +193,36 @@ void Main_Setup( void )
 
 		Flash_EEPROM_Data_Read( 127, 0x0803F800, 31, &eeprom_data_test[0]);
 
-	    sprintf(uartTX, "                                                                                                    ");
-	    sprintf(uartTX, "\nSetup is done! Everything is looks OKAY! All data is saved to the flash! Reset!\n");
-	    HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
-	}
-	else if( eeprom_data_test[0] == 92 && eeprom_data[28] != 2 && eeprom_data[29] != 1 && eeprom_data[30] != 131 )
-	{
-	    sprintf(uartTX, "                                                                                                    ");
-	    sprintf(uartTX, "\nSetup is NOT done! Gyro axises are useless! Re-do the setup!\n");
-	    HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+		if( eeprom_data_test[0] == 92 && eeprom_data[28] == 1 && eeprom_data[29] == 130 && eeprom_data[30] == 131 )
+		{
+			sprintf(uartTX, "                                                                                                    ");
+			sprintf(uartTX, "\nSetup is done! Everything is looks OKAY! All data is saved to the flash! Reset!\n");
+			HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+		}
+		else if( eeprom_data_test[0] == 92 && eeprom_data[28] != 1 && eeprom_data[29] != 130 && eeprom_data[30] != 131 )
+		{
+		    sprintf(uartTX, "                                                                                                    ");
+		    sprintf(uartTX, "\nSetup is NOT done! Gyro axises are useless! Re-do the setup!\n");
+		    HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
 
-		Flash_ErasePage( 0x0803F800 );
-	}
-	else
-	{
-	    sprintf(uartTX, "                                                                                                    ");
-	    sprintf(uartTX, "\nSetup is NOT done! All data is useless! Re-do the setup!\n");
-	    HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+			Flash_ErasePage( 0x0803F800 );
+		}
+		else if( eeprom_data_test[0] != 92 && eeprom_data[28] == 1 && eeprom_data[29] == 130 && eeprom_data[30] == 131 )
+		{
+		    sprintf(uartTX, "                                                                                                    ");
+		    sprintf(uartTX, "\nSetup is NOT done! Writing and/or reading functions are useless!\n");
+		    HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
 
-		Flash_ErasePage( 0x0803F800 );
+			Flash_ErasePage( 0x0803F800 );
+		}
+		else
+		{
+		    sprintf(uartTX, "                                                                                                    ");
+		    sprintf(uartTX, "\nSetup is NOT done! Re-do the setup!\n");
+		    HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
+
+			Flash_ErasePage( 0x0803F800 );
+		}
 	}
 }
 
