@@ -21,7 +21,8 @@ int low_channel_1, low_channel_2, low_channel_3, low_channel_4;
 int cal_int;
 uint8_t channel_1_assign, channel_2_assign, channel_3_assign, channel_4_assign;
 float gyro_roll_cal, gyro_pitch_cal, gyro_yaw_cal;
-static uint8_t eeprom_data[32];
+static uint8_t eeprom_data8[32];
+static uint16_t eeprom_data16[32];
 //
 extern int receiver_input_channel_1, receiver_input_channel_2, receiver_input_channel_3, receiver_input_channel_4;
 //
@@ -114,41 +115,73 @@ void Main_Setup( void )
 	HAL_Delay( 3000 );
 	Check_Gyro_Axes( 3 );		//	Rotate the nose of the quadcopter 45 degree to the right within 10 seconds
 
-    eeprom_data[0]  = center_channel_1 & 0b11111111;
-    eeprom_data[1]  = center_channel_1 >> 8;
-    eeprom_data[2]  = center_channel_2 & 0b11111111;
-    eeprom_data[3]  = center_channel_2 >> 8;
-    eeprom_data[4]  = center_channel_3 & 0b11111111;
-    eeprom_data[5]  = center_channel_3 >> 8;
-    eeprom_data[6]  = center_channel_4 & 0b11111111;
-    eeprom_data[7]  = center_channel_4 >> 8;
-    eeprom_data[8]  = high_channel_1 & 0b11111111;
-    eeprom_data[9]  = high_channel_1 >> 8;
-    eeprom_data[10] = high_channel_2 & 0b11111111;
-    eeprom_data[11] = high_channel_2 >> 8;
-    eeprom_data[12] = high_channel_3 & 0b11111111;
-    eeprom_data[13] = high_channel_3 >> 8;
-    eeprom_data[14] = high_channel_4 & 0b11111111;
-    eeprom_data[15] = high_channel_4 >> 8;
-    eeprom_data[16] = low_channel_1 & 0b11111111;
-    eeprom_data[17] = low_channel_1 >> 8;
-    eeprom_data[18] = low_channel_2 & 0b11111111;
-    eeprom_data[19] = low_channel_2 >> 8;
-    eeprom_data[20] = low_channel_3 & 0b11111111;
-    eeprom_data[21] = low_channel_3 >> 8;
-    eeprom_data[22] = low_channel_4 & 0b11111111;
-    eeprom_data[23] = low_channel_4 >> 8;
-    eeprom_data[24] = channel_1_assign;
-    eeprom_data[25] = channel_2_assign;
-    eeprom_data[26] = channel_3_assign;
-    eeprom_data[27] = channel_4_assign;
-    eeprom_data[28] = roll_axis;
-    eeprom_data[29] = pitch_axis;
-    eeprom_data[30] = yaw_axis;
-	eeprom_data[31] = 92;
+    eeprom_data8[0]  = center_channel_1 & 0b11111111;
+    eeprom_data8[1]  = center_channel_1 >> 8;
+    eeprom_data8[2]  = center_channel_2 & 0b11111111;
+    eeprom_data8[3]  = center_channel_2 >> 8;
+    eeprom_data8[4]  = center_channel_3 & 0b11111111;
+    eeprom_data8[5]  = center_channel_3 >> 8;
+    eeprom_data8[6]  = center_channel_4 & 0b11111111;
+    eeprom_data8[7]  = center_channel_4 >> 8;
+    eeprom_data8[8]  = high_channel_1 & 0b11111111;
+    eeprom_data8[9]  = high_channel_1 >> 8;
+    eeprom_data8[10] = high_channel_2 & 0b11111111;
+    eeprom_data8[11] = high_channel_2 >> 8;
+    eeprom_data8[12] = high_channel_3 & 0b11111111;
+    eeprom_data8[13] = high_channel_3 >> 8;
+    eeprom_data8[14] = high_channel_4 & 0b11111111;
+    eeprom_data8[15] = high_channel_4 >> 8;
+    eeprom_data8[16] = low_channel_1 & 0b11111111;
+    eeprom_data8[17] = low_channel_1 >> 8;
+    eeprom_data8[18] = low_channel_2 & 0b11111111;
+    eeprom_data8[19] = low_channel_2 >> 8;
+    eeprom_data8[20] = low_channel_3 & 0b11111111;
+    eeprom_data8[21] = low_channel_3 >> 8;
+    eeprom_data8[22] = low_channel_4 & 0b11111111;
+    eeprom_data8[23] = low_channel_4 >> 8;
+    eeprom_data8[24] = channel_1_assign;
+    eeprom_data8[25] = channel_2_assign;
+    eeprom_data8[26] = channel_3_assign;
+    eeprom_data8[27] = channel_4_assign;
+    eeprom_data8[28] = roll_axis;
+    eeprom_data8[29] = pitch_axis;
+    eeprom_data8[30] = yaw_axis;
+	eeprom_data8[31] = 92;
 
+	eeprom_data16[0]  = 0x00 << 8 | eeprom_data8[0];
+    eeprom_data16[1]  = 0x00 << 8 | eeprom_data8[1];
+    eeprom_data16[2]  = 0x00 << 8 | eeprom_data8[2];
+    eeprom_data16[3]  = 0x00 << 8 | eeprom_data8[3];
+    eeprom_data16[4]  = 0x00 << 8 | eeprom_data8[4];
+    eeprom_data16[5]  = 0x00 << 8 | eeprom_data8[5];
+    eeprom_data16[6]  = 0x00 << 8 | eeprom_data8[6];
+    eeprom_data16[7]  = 0x00 << 8 | eeprom_data8[7];
+    eeprom_data16[8]  = 0x00 << 8 | eeprom_data8[8];
+    eeprom_data16[9]  = 0x00 << 8 | eeprom_data8[9];
+    eeprom_data16[10] = 0x00 << 8 | eeprom_data8[10];
+    eeprom_data16[11] = 0x00 << 8 | eeprom_data8[11];
+    eeprom_data16[12] = 0x00 << 8 | eeprom_data8[12];
+    eeprom_data16[13] = 0x00 << 8 | eeprom_data8[13];
+    eeprom_data16[14] = 0x00 << 8 | eeprom_data8[14];
+    eeprom_data16[15] = 0x00 << 8 | eeprom_data8[15];
+    eeprom_data16[16] = 0x00 << 8 | eeprom_data8[16];
+    eeprom_data16[17] = 0x00 << 8 | eeprom_data8[17];
+    eeprom_data16[18] = 0x00 << 8 | eeprom_data8[18];
+    eeprom_data16[19] = 0x00 << 8 | eeprom_data8[19];
+    eeprom_data16[20] = 0x00 << 8 | eeprom_data8[20];
+    eeprom_data16[21] = 0x00 << 8 | eeprom_data8[21];
+    eeprom_data16[22] = 0x00 << 8 | eeprom_data8[22];
+    eeprom_data16[23] = 0x00 << 8 | eeprom_data8[23];
+    eeprom_data16[24] = 0x00 << 8 | eeprom_data8[24];
+    eeprom_data16[25] = 0x00 << 8 | eeprom_data8[25];
+    eeprom_data16[26] = 0x00 << 8 | eeprom_data8[26];
+    eeprom_data16[27] = 0x00 << 8 | eeprom_data8[27];
+    eeprom_data16[28] = 0x00 << 8 | eeprom_data8[28];
+    eeprom_data16[29] = 0x00 << 8 | eeprom_data8[29];
+    eeprom_data16[30] = 0x00 << 8 | eeprom_data8[30];
+	eeprom_data16[31] = 0x00 << 8 | eeprom_data8[31];
 
-	if( eeprom_data[31] == 92 && eeprom_data[28] == 1 && eeprom_data[29] == 130 && eeprom_data[30] == 131 )
+	if( eeprom_data8[31] == 92 && eeprom_data8[28] == 1 && eeprom_data8[29] == 130 && eeprom_data8[30] == 131 )
 	{
 	    sprintf(uartTX, "                                                                                                    ");
 	    sprintf(uartTX, "\nValues look good! Saving data to the flash.....!\n");
@@ -157,49 +190,48 @@ void Main_Setup( void )
 
 		Flash_ErasePage( 0x0803F800 );
 																				// EEPROM Array to Flash
-		Flash_EEPROM_Data_Write( 127, 0x0803F800,  0, &eeprom_data[0]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800,  1, &eeprom_data[1]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800,  2, &eeprom_data[2]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800,  3, &eeprom_data[3]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800,  4, &eeprom_data[4]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800,  5, &eeprom_data[5]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800,  6, &eeprom_data[6]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800,  7, &eeprom_data[7]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800,  8, &eeprom_data[8]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800,  9, &eeprom_data[9]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 10, &eeprom_data[10]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 11, &eeprom_data[11]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 12, &eeprom_data[12]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 13, &eeprom_data[13]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 14, &eeprom_data[14]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 15, &eeprom_data[15]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 16, &eeprom_data[16]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 17, &eeprom_data[17]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 18, &eeprom_data[18]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 19, &eeprom_data[19]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 20, &eeprom_data[20]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 21, &eeprom_data[21]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 22, &eeprom_data[22]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 23, &eeprom_data[23]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 24, &eeprom_data[24]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 25, &eeprom_data[25]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 26, &eeprom_data[26]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 27, &eeprom_data[27]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 28, &eeprom_data[28]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 29, &eeprom_data[29]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 30, &eeprom_data[30]);
-		Flash_EEPROM_Data_Write( 127, 0x0803F800, 31, &eeprom_data[31]);
-
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  0, &eeprom_data16[0]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  1, &eeprom_data16[1]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  2, &eeprom_data16[2]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  3, &eeprom_data16[3]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  4, &eeprom_data16[4]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  5, &eeprom_data16[5]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  6, &eeprom_data16[6]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  7, &eeprom_data16[7]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  8, &eeprom_data16[8]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800,  9, &eeprom_data16[9]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 10, &eeprom_data16[10]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 11, &eeprom_data16[11]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 12, &eeprom_data16[12]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 13, &eeprom_data16[13]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 14, &eeprom_data16[14]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 15, &eeprom_data16[15]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 16, &eeprom_data16[16]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 17, &eeprom_data16[17]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 18, &eeprom_data16[18]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 19, &eeprom_data16[19]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 20, &eeprom_data16[20]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 21, &eeprom_data16[21]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 22, &eeprom_data16[22]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 23, &eeprom_data16[23]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 24, &eeprom_data16[24]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 25, &eeprom_data16[25]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 26, &eeprom_data16[26]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 27, &eeprom_data16[27]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 28, &eeprom_data16[28]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 29, &eeprom_data16[29]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 30, &eeprom_data16[30]);
+		Flash_EEPROM_Data_Write( 127, 0x0803F800, 31, &eeprom_data16[31]);
 
 		Flash_EEPROM_Data_Read( 127, 0x0803F800, 31, &eeprom_data_test[0]);
 
-		if( eeprom_data_test[0] == 92 && eeprom_data[28] == 1 && eeprom_data[29] == 130 && eeprom_data[30] == 131 )
+		if( eeprom_data_test[0] == 92 && eeprom_data8[28] == 1 && eeprom_data8[29] == 130 && eeprom_data8[30] == 131 )
 		{
 			sprintf(uartTX, "                                                                                                    ");
 			sprintf(uartTX, "\nSetup is done! Everything is looks OKAY! All data is saved to the flash! Reset!\n");
 			HAL_UART_Transmit( &huart1, (uint8_t *)uartTX, sizeof(uartTX), 100 );
 		}
-		else if( eeprom_data_test[0] == 92 && eeprom_data[28] != 1 && eeprom_data[29] != 130 && eeprom_data[30] != 131 )
+		else if( eeprom_data_test[0] == 92 && eeprom_data8[28] != 1 && eeprom_data8[29] != 130 && eeprom_data8[30] != 131 )
 		{
 		    sprintf(uartTX, "                                                                                                    ");
 		    sprintf(uartTX, "\nSetup is NOT done! Gyro axises are useless! Re-do the setup!\n");
@@ -207,7 +239,7 @@ void Main_Setup( void )
 
 //			Flash_ErasePage( 0x0803F800 );
 		}
-		else if( eeprom_data_test[0] != 92 && eeprom_data[28] == 1 && eeprom_data[29] == 130 && eeprom_data[30] == 131 )
+		else if( eeprom_data_test[0] != 92 && eeprom_data8[28] == 1 && eeprom_data8[29] == 130 && eeprom_data8[30] == 131 )
 		{
 		    sprintf(uartTX, "                                                                                                    ");
 		    sprintf(uartTX, "\nSetup is NOT done! Writing and/or reading functions are useless!\n");

@@ -44,7 +44,7 @@ extern int receiver_input_channel_1, receiver_input_channel_2, receiver_input_ch
 extern int16_t gX_Raw, gY_Raw, gZ_Raw;
 extern double gyro_pitch, gyro_roll, gyro_yaw;
 //
-extern uint8_t eeprom_data[32];
+extern uint8_t eeprom_data8[32];
 
 
 void Flight_Control_Setup( void )
@@ -192,14 +192,14 @@ void Flight_Gyro_Signalen( void )
 	    gyro_axis[3] -= gyro_axis_cal[3];                            //Only compensate after the calibration
 	}
 
-	gyro_roll  = gyro_axis[eeprom_data[28] & 0b00000011];
-	if(	eeprom_data[28] & 0b10000000 )	{	gyro_roll *= -1;	}
+	gyro_roll  = gyro_axis[eeprom_data8[28] & 0b00000011];
+	if(	eeprom_data8[28] & 0b10000000 )	{	gyro_roll *= -1;	}
 
-	gyro_pitch = gyro_axis[eeprom_data[29] & 0b00000011];
-	if(	eeprom_data[29] & 0b10000000 )	{	gyro_pitch *= -1;	}
+	gyro_pitch = gyro_axis[eeprom_data8[29] & 0b00000011];
+	if(	eeprom_data8[29] & 0b10000000 )	{	gyro_pitch *= -1;	}
 
-	gyro_yaw   = gyro_axis[eeprom_data[30] & 0b00000011];
-	if(	eeprom_data[30] & 0b10000000 )	{	gyro_yaw *= -1;		}
+	gyro_yaw   = gyro_axis[eeprom_data8[30] & 0b00000011];
+	if(	eeprom_data8[30] & 0b10000000 )	{	gyro_yaw *= -1;		}
 }
 
 void Calculate_PID( void )
@@ -249,14 +249,14 @@ int Convert_Receiver_Channels( uint8_t function )
 	int low, center, high, actual;
 	int difference;
 
-	channel = eeprom_data[function + 23] & 0b00000111;                           //What channel corresponds with the specific function
-	if( eeprom_data[function + 23] & 0b10000000  )	{	reverse = 1;	}            //Reverse channel when most significant bit is set
+	channel = eeprom_data8[function + 23] & 0b00000111;                           //What channel corresponds with the specific function
+	if( eeprom_data8[function + 23] & 0b10000000  )	{	reverse = 1;	}            //Reverse channel when most significant bit is set
 	else	{	reverse = 0;	}                                                            //If the most significant is not set there is no reverse
 
 	actual = receiver_input[channel];                                            //Read the actual receiver value for the corresponding function
-	low 	= ( eeprom_data[channel * 2 + 15] << 8 ) | eeprom_data[channel * 2 + 14]; 	//Store the low value for the specific receiver input channel
-	center 	= ( eeprom_data[channel * 2 - 1] << 8 )  | eeprom_data[channel * 2 - 2];	//Store the center value for the specific receiver input channel
-	high 	= ( eeprom_data[channel * 2 + 7] << 8 )  | eeprom_data[channel * 2 + 6];   	//Store the high value for the specific receiver input channel
+	low 	= ( eeprom_data8[channel * 2 + 15] << 8 ) | eeprom_data8[channel * 2 + 14]; 	//Store the low value for the specific receiver input channel
+	center 	= ( eeprom_data8[channel * 2 - 1] << 8 )  | eeprom_data8[channel * 2 - 2];	//Store the center value for the specific receiver input channel
+	high 	= ( eeprom_data8[channel * 2 + 7] << 8 )  | eeprom_data8[channel * 2 + 6];   	//Store the high value for the specific receiver input channel
 
 	if( actual < center )
 	{                                             	//The actual receiver value is lower than the center value
