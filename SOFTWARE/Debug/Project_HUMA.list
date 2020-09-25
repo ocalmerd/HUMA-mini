@@ -27,9 +27,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00020010  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00019cbf  00000000  00000000  00020040  2**0
+ 12 .debug_info   00019cc5  00000000  00000000  00020040  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_abbrev 00003413  00000000  00000000  00039cff  2**0
+ 13 .debug_abbrev 00003413  00000000  00000000  00039d05  2**0
                   CONTENTS, READONLY, DEBUGGING
  14 .debug_aranges 00001218  00000000  00000000  0003d118  2**3
                   CONTENTS, READONLY, DEBUGGING
@@ -987,7 +987,7 @@ void Flash_ErasePage( uint32_t pageaddress )
 
 08000b86 <Flash_EEPROM_Data_Write>:
 
-void Flash_EEPROM_Data_Write( uint8_t page, uint32_t address, uint32_t index, void *writeBuffer )
+void Flash_EEPROM_Data_Write( uint8_t page, uint32_t address, uint32_t index, uint16_t * writeBuffer )
 {
  8000b86:	b590      	push	{r4, r7, lr}
  8000b88:	b087      	sub	sp, #28
@@ -1014,7 +1014,7 @@ void Flash_EEPROM_Data_Write( uint8_t page, uint32_t address, uint32_t index, vo
  8000ba6:	617b      	str	r3, [r7, #20]
  8000ba8:	e010      	b.n	8000bcc <Flash_EEPROM_Data_Write+0x46>
 	{
-		HAL_FLASH_Program( FLASH_TYPEPROGRAM_HALFWORD, flashAddress, ( (uint16_t *)writeBuffer)[i] );
+		HAL_FLASH_Program( FLASH_TYPEPROGRAM_HALFWORD, flashAddress, (writeBuffer)[i] );
  8000baa:	697b      	ldr	r3, [r7, #20]
  8000bac:	005b      	lsls	r3, r3, #1
  8000bae:	683a      	ldr	r2, [r7, #0]
@@ -1064,12 +1064,12 @@ void Flash_EEPROM_Data_Read( uint8_t page, uint32_t address, uint32_t index, voi
  8000bf4:	4413      	add	r3, r2
  8000bf6:	617b      	str	r3, [r7, #20]
 
-		*((uint16_t *)readBuffer) = *(uint32_t *)flashAddress;
+		*((uint8_t *)readBuffer) = *(uint32_t *)flashAddress;
  8000bf8:	697b      	ldr	r3, [r7, #20]
  8000bfa:	681b      	ldr	r3, [r3, #0]
- 8000bfc:	b29a      	uxth	r2, r3
+ 8000bfc:	b2da      	uxtb	r2, r3
  8000bfe:	683b      	ldr	r3, [r7, #0]
- 8000c00:	801a      	strh	r2, [r3, #0]
+ 8000c00:	701a      	strb	r2, [r3, #0]
 }
  8000c02:	bf00      	nop
  8000c04:	371c      	adds	r7, #28
